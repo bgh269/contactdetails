@@ -10,6 +10,7 @@ public interface PersonRepository extends CrudRepository<Person, Long>{
 	// tässä Person ja toisena parametrina pääavainsarakkeen luokkatietotyyppi, tässä Long
 	// BookRepository periytyy(extends) CrudRepositorystä ja perii mm. metodiesittelyt
 	// findAll(), findById(), save(), deleteById()
-	// List<Person>findByName(String lastname);
 	//List<Person> findByOwner(User owner);
+	 List<Person>findByLastname(String lastname);
+	 Person findByFirstname(String firstname);
 }
