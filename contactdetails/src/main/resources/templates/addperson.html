@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link type="text/css" rel="stylesheet"
+	href="css/bootstrap-4.3.1-dist/css/bootstrap.min.css"
+	th:href="@{css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<title>Add person</title>
+</head>
+<!-- ${} model atribuutin kutsu, @{} endpoint, action="#" pysyy samalla sivulla-->
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-light bg-light">
+			<a class="navbar-brand"><h1>Add new person</h1></a>
+			<a href="/personlist">Back to personlist</a>
+		</nav>
+
+
+		<form th:object="${person}" th:action="@{saveperson}" action="#"
+			method="post">
+			<div class="form-group">
+				<label for="fname">First name</label> <input type="text" id="fname"
+					th:field="*{firstname}" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="lname">Last name</label> <input type="text" id="lname"
+					th:field="*{lastname}" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="phone">Phone number</label> <input type="text"
+					id="phone" th:field="*{phoneNumber}" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="contactList">Contact type</label> <select
+					id="contactList" th:field="*{contactType}" class="form-control">
+					<option th:each="contactType: ${contactTypes}"
+						th:value="${contactType.contactId}" th:text="${contactType.name}"></option>
+				</select>
+			</div>
+			<input type="submit" value="Save person" class="btn btn-primary" />
+		</form>
+	</div>
+</body>
+</html>
+
+<!-- th:field="*{department}" voi olla myös th:field=${student.department} tallennus student oliolle post:illa-->

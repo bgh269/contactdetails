@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link type="text/css" rel="stylesheet"
+	href="css/bootstrap-4.3.1-dist/css/bootstrap.min.css"
+	th:href="@{css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<title>Person list</title>
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-light bg-light">
+			<a class="navbar-brand"><h1>Person list</h1></a>
+			<!-- sisäänkirjautuneen käyttäjän tunnus näkyviin -->
+			<h3 th:inline="text">Welcome
+				[[${#httpServletRequest.remoteUser}]]</h3>
+			<!-- uloskirjaus painike -->
+			<form class="form-inline" th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign out" class="btn btn-secondary" />
+			</form>
+		</nav>
+
+
+		<table class="table ">
+			<thead>
+				<tr>
+					<th>First name</th>
+					<th>Last name</th>
+					<th>Phone number</th>
+					<th>Contact type</th>
+					<th></th>
+					<th></th>
+					<th sec:authorize="hasRole('USER')"></th>
+					<!-- tämä vain otsikko -->
+				</tr>
+			</thead>
+			<tbody>
+				<!-- ${persons} on model-mapin keyword hakee model-mappiin tallennettua tietoa person listasta-->
+				<tr th:each="person : ${persons}">
+					<!-- person viittaa edellisen rivin person olioon (yksittäinen henkilö), johon on tallennettu modelmapista persons-keywordillä tallennettua tieto -->
+					<td th:text="${person.firstname}"></td>
+					<td th:text="${person.lastname}"></td>
+					<td th:text="${person.phoneNumber}"></td>
+					<td th:text="${person.contactType.name}"></td>
+					<td sec:authorize="hasAuthority('USER')"><a
+						th:href="@{deleteperson/{id}(id=${person.personId})}"
+						class="btn btn-danger">Delete</a></td>
+					<!-- sec:authorize toiminto varmistaa, että käyttäjä on user, jotta delete tulee näkyviin, muuten piilossa-->
+					<td sec:authorize="hasAuthority('USER')"><a
+						th:href="@{editperson/{id}(id=${person.personId})}"
+						class="btn btn-info">Edit</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="col">
+			<a href="/addcontacttype" class="btn btn-primary">Add contact
+				type</a> <a href="/addperson" class="btn btn-primary">Add person</a>
+		</div>
+	</div>
+</body>
+</html>

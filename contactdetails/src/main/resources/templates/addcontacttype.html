@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link type="text/css" rel="stylesheet"
+	href="css/bootstrap-4.3.1-dist/css/bootstrap.min.css"
+	th:href="@{css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<title>Add contact type</title>
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-light bg-light">
+			<a class="navbar-brand"><h1>Add new contact type</h1></a>
+			<!-- sisäänkirjautuneen käyttäjän tunnus näkyviin -->
+			<a href="/personlist">Back to personlist</a> <a
+				href="/contacttypelist">Back to contact type list</a>
+		</nav>
+		<br>
+		<form th:object="${contactType}" th:action="@{savecontacttype}"
+			action="#" method="post">
+			<div class="form-inline">
+				<input type="text" th:field="*{name}" class="form-control" />
+				<input type="submit" value="Save contact type"
+					class="btn btn-primary" />
+			</div>
+		</form>
+
+	</div>
+</body>
+</html>
