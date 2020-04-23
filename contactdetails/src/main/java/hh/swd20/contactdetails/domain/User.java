@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -23,6 +24,7 @@ public class User {
 	private Long userId;
 	
 	// Uniikki käyttäjätunnus
+	@Size(min = 4, max = 20)
 	@Column(name="username", nullable=false, unique=true)
 	private String username;
 	
@@ -32,7 +34,7 @@ public class User {
 	@Column(name="role", nullable=false)
 	private String role;
 	
-/*
+/*	TÄSSÄ YRITYS YHDISTÄÄ HLÖ-TAULU KÄYTTÄJÄTAULUUN (User owner)
 	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Person> persons;

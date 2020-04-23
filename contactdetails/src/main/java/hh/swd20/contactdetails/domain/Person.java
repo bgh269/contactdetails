@@ -6,7 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -16,11 +17,17 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long personId;
+	@NotEmpty
+	@Size(min = 2, max = 20)
 	private String firstname;
+	@NotEmpty
+	@Size(min = 5, max = 30)
 	private String lastname;
+	@NotEmpty
+	@Size(min = 6, max = 15)
 	private String phoneNumber;
 	
-	/*
+	/* TÄSSÄ YRITYS MÄÄRITTÄÄ TIEDON LUOJA (User owner)
 	@ManyToOne
 	@JsonManagedReference
 	@JoinColumn(name = "userId")
@@ -93,7 +100,7 @@ public class Person {
 	public void setContactType(ContactType contactType) {
 		this.contactType = contactType;
 	}
-/*
+/*	TÄMÄ LIITTYY yritykseen määrittää/yhdistää User owner
 	@Override
 	public String toString() {
 		if (this.contactType != null && this.owner != null)

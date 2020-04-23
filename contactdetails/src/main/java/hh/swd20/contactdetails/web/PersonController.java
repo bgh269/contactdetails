@@ -4,10 +4,14 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,7 +45,8 @@ public class PersonController {
 	public String login() {
 		return "login";
 	}
-	/*
+	/* TÄSSÄ YRITYS TIEDON LUOJASTA (PRINCIPAL-Homma)
+	 * 
 	@RequestMapping(value="/ownerspersonlist")
 	public String findUsersPersonlist(Model model, Principal principal) {
 		String username = principal.getName(); // hakee sisäänkirj. käyttäjätunnuksen
@@ -83,7 +88,11 @@ public class PersonController {
 	// hlön tallennus tietokantaan
 	// hlölomakkeelle syötettyjen tietojen vastaanotto ja tallennus
 	@RequestMapping(value="/saveperson", method=RequestMethod.POST)
-	public String save(Person person) {
+	public String save(@Valid @ModelAttribute Person person, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("contactTypes", crepository.findAll());
+			return "addperson";
+		}
 		prepository.save(person);
 		return "redirect:personlist";
 	}

@@ -71,6 +71,7 @@
 				</exclusion>
 			</exclusions>  
 		</dependency>
+		<!-- Lisää JUnit kirjasto, hakusana mave JUnit dependency -->
 	</dependencies>
 
 	<build>

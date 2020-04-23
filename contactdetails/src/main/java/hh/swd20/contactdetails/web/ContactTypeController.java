@@ -1,6 +1,9 @@
 package hh.swd20.contactdetails.web;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,9 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.swd20.contactdetails.domain.ContactType;
 import hh.swd20.contactdetails.domain.ContactTypeRepository;
+
 
 @Controller
 public class ContactTypeController {
@@ -51,4 +56,17 @@ public class ContactTypeController {
 		return "redirect:../contacttypelist";
 	}
 	
+	// REST-METODI
+	// RESTful service, jolla haetaan kaikki contactTypet
+	@RequestMapping(value="/contacttypes", method=RequestMethod.GET)
+	public @ResponseBody List<ContactType> contactTypeListRest() {
+		return (List<ContactType>)crepository.findAll();
+	}
+	
+	// REST-METODI
+	// RESTful service, jolla haetaan contactType id:llä
+	@RequestMapping(value="/contacttypes/{id}", method=RequestMethod.GET)
+	public @ResponseBody Optional<ContactType> findContactTypeRest(@PathVariable("id") Long contactId) {
+		return crepository.findById(contactId);
+	}
 }
