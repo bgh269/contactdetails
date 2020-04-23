@@ -58,7 +58,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-		 	<scope>runtime</scope>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -69,9 +69,14 @@
 					<groupId>org.junit.vintage</groupId>
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
-			</exclusions>  
+			</exclusions>
 		</dependency>
-		<!-- Lisää JUnit kirjasto, hakusana mave JUnit dependency -->
+		<!-- Lisää JUnit kirjasto, hakusana maven JUnit dependency -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<!-- <version>4.13</version> -->
+		</dependency>
 	</dependencies>
 
 	<build>
